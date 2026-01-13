@@ -1,27 +1,44 @@
+using System.Collections.Generic;
+using System.Threading;
+using NLog;
+
 namespace OfflineStaticProtection.Services
 {
     /// <summary>
-    /// Service responsible for locking and unlocking player grids.
-    /// Stub functions: no actual locking implemented yet.
+    /// Handles grid locking/unlocking.
     /// </summary>
     public static class GridLockService
     {
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         /// <summary>
-        /// Locks all grids of a player identified by SteamId.
+        /// Lock all grids of a player by SteamID.
         /// </summary>
-        /// <param name="steamId">Steam ID of the player</param>
         public static void LockPlayerGrids(ulong steamId)
         {
-            // TODO: Implement grid lock logic
+            Log.Info("[DEBUG] LockPlayerGrids called for SteamID: " + steamId);
+
+            // TODO: Implement actual grid lock using MySession / Sandbox references
+            // Minimal version for initial build: does nothing but log
+            Log.Info("Simulated: grids locked for SteamID " + steamId);
         }
 
         /// <summary>
-        /// Unlocks all grids of a player with delay.
+        /// Unlock all grids of a player after a delay.
         /// </summary>
-        /// <param name="steamId">Steam ID of the player</param>
         public static void UnlockPlayerGridsWithDelay(ulong steamId)
         {
-            // TODO: Implement delayed unlock
+            int delay = 30; // placeholder, will move to config
+            Log.Info("[DEBUG] UnlockPlayerGridsWithDelay called for SteamID: " + steamId);
+
+            Log.Info("Simulated: grids will unlock in " + delay + " seconds.");
+
+            Thread t = new Thread(delegate ()
+            {
+                Thread.Sleep(delay * 1000);
+                Log.Info("Simulated: grids unlocked for SteamID " + steamId);
+            });
+            t.Start();
         }
     }
 }

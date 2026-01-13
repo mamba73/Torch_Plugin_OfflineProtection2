@@ -18,3 +18,5 @@ obj/
 
 # Ignore dependencies DLLs (Torch / SE)
 Dependencies/*.dll
+
+*.zip
