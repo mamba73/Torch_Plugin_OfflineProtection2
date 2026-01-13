@@ -2,7 +2,6 @@
 set CONFIG=Release
 set OUTDIR=bin\%CONFIG%
 set ZIPNAME=OfflineStaticProtection.zip
-set DLLNAME=OfflineStaticProtection.dll
 
 echo === BUILD ===
 dotnet build OfflineStaticProtection.csproj -c %CONFIG%
@@ -16,7 +15,7 @@ if exist %ZIPNAME% del %ZIPNAME%
 
 echo === CREATE ZIP ===
 powershell -Command ^
-"Compress-Archive -Path '%OUTDIR%\%DLLNAME%','manifest.xml' -DestinationPath '%ZIPNAME%'"
+"Compress-Archive -Path '%OUTDIR%\OfflineStaticProtection.dll','manifest.xml' -DestinationPath '%ZIPNAME%'"
 
 echo === DONE ===
 echo Created: %ZIPNAME%

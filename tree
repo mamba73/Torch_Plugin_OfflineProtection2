@@ -1,19 +1,25 @@
-Torch_Plugin_OfflineProtection_v2/
-│
-├─ OfflineStaticProtection.csproj
-├─ manifest.xml
-├─ build.bat
+OfflineStaticProtection/
 │
 ├─ Config/
-│   ├─ OfflineProtectionConfig.cs
-│   └─ OfflineProtection.cfg
-│
+│  └─ OfflineProtectionConfig.cs
+├─ Dependencies/
+│  ├─ NLog.dll
+│  ├─ Sandbox.Common.dll
+│  ├─ Sandbox.Game.dll
+│  ├─ Torch.API.dll
+│  ├─ Torch.dll
+│  ├─ VRage.dll
+│  ├─ VRage.Game.dll
+│  ├─ VRage.Library.dll
+│  └─ VRage.Math.dll
 ├─ Plugin/
-│   └─ OfflineStaticProtectionPlugin.cs
-│
+│  └─ OfflineStaticProtectionPlugin.cs
 ├─ Services/
-│   ├─ OfflinePlayerTracker.cs
-│   └─ GridLockService.cs
-│
-└─ Utils/
-    └─ ChatUtils.cs
+│  ├─ GridLockService.cs
+│  └─ OfflinePlayerTracker.cs
+├─ Utils/
+│  └─ ChatUtils.cs
+├─ .gitignore
+├─ OfflineStaticProtection.csproj
+├─ README.md
+└─ build.bat

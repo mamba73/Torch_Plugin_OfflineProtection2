@@ -1,43 +1,25 @@
-using System.IO;
-using NLog;
-using Torch;
-using Torch.API.Plugins;
-using Torch.API.Session;
 using OfflineStaticProtection.Config;
-using OfflineStaticProtection.Services;
 
 namespace OfflineStaticProtection.Plugin
 {
-    public class OfflineStaticProtectionPlugin : TorchPluginBase
+    /// <summary>
+    /// Main plugin class for OfflineStaticProtection.
+    /// Responsible for initializing plugin and loading configuration.
+    /// </summary>
+    public class OfflineStaticProtectionPlugin
     {
-        public static OfflineProtectionConfig Config;
-        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// Holds plugin configuration such as enabled, unlock delay, etc.
+        /// </summary>
+        public static OfflineProtectionConfig Config { get; set; } = new OfflineProtectionConfig();
 
-        public override void Init(ITorchBase torch)
+        /// <summary>
+        /// Initialize the plugin.
+        /// Currently a stub: no managers or events are hooked.
+        /// </summary>
+        public void Init()
         {
-            base.Init(torch);
-
-            var persistent =
-                Persistent<OfflineProtectionConfig>.Load(
-                    Path.Combine(StoragePath, "OfflineProtection.cfg"));
-
-            Config = persistent.Data;
-            persistent.Save();
-
-            var sessionManager =
-                torch.Managers.GetManager(typeof(ITorchSessionManager)) as ITorchSessionManager;
-
-            sessionManager.SessionStateChanged += OnSessionStateChanged;
-
-            Log.Info("OfflineStaticProtection v2 loaded");
-        }
-
-        private void OnSessionStateChanged(ITorchSession session, TorchSessionState state)
-        {
-            if (state == TorchSessionState.Loaded)
-            {
-                new OfflinePlayerTracker().Attach(session);
-            }
+            // TODO: Initialize Torch managers and subscribe to events
         }
     }
 }

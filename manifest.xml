@@ -2,10 +2,8 @@
 <PluginManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>OfflineStaticProtection</Name>
-  <Guid>8c2f1b5e-4a9d-4f6d-9c3a-6e2b9f4d71a8</Guid>
+  <Guid>e1a5f2b8-3c74-4d6f-b4e8-9c1234567890</Guid>
   <Version>2.0.0</Version>
-  <Description>
-    Locks player grids while offline, disables production, and unlocks them with a configurable delay.
-  </Description>
+  <Description>Locks grids for offline players with optional production disable and delayed unlock.</Description>
   <Author>mamba</Author>
 </PluginManifest>

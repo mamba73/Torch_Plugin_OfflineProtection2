@@ -1,26 +1,27 @@
-using Torch.API;
-using Torch.API.Managers;
-using Torch.API.Session;
-
 namespace OfflineStaticProtection.Services
 {
-    public class OfflinePlayerTracker
+    /// <summary>
+    /// Tracks players going offline or joining the game.
+    /// Stub functions: no actual tracking yet.
+    /// </summary>
+    public static class OfflinePlayerTracker
     {
-        public void Attach(ITorchSession session)
+        /// <summary>
+        /// Called when a player leaves the server.
+        /// </summary>
+        /// <param name="steamId">Steam ID of the player</param>
+        public static void OnPlayerLeft(ulong steamId)
         {
-            var mp = session.Managers.GetManager<IMultiplayerManagerServer>();
-            mp.PlayerLeft += OnPlayerLeft;
-            mp.PlayerJoined += OnPlayerJoined;
+            // TODO: Track offline player
         }
 
-        private void OnPlayerLeft(IPlayer player)
+        /// <summary>
+        /// Called when a player joins the server.
+        /// </summary>
+        /// <param name="steamId">Steam ID of the player</param>
+        public static void OnPlayerJoined(ulong steamId)
         {
-            GridLockService.LockPlayerGrids(player);
-        }
-
-        private void OnPlayerJoined(IPlayer player)
-        {
-            GridLockService.UnlockPlayerGridsWithDelay(player);
+            // TODO: Track login
         }
     }
 }

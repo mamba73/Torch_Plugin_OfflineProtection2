@@ -1,3 +1,17 @@
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.csproj.AssemblyReference.cache
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.GeneratedMSBuildEditorConfig.editorconfig
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.csproj.CoreCompileInputs.cache
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\OfflineStaticProtection.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\OfflineStaticProtection.pdb
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\NLog.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\Sandbox.Common.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\Sandbox.Game.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\Torch.API.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\Torch.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\VRage.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\VRage.Game.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\VRage.Library.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\VRage.Math.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineS.9C983FCB.Up2Date
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.dll
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.pdb
