@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\g\\dev\\Torch_Plugin_OfflineProtection_v2\\OfflineStaticProtection.csproj": {}
+  },
+  "projects": {
+    "D:\\g\\dev\\Torch_Plugin_OfflineProtection_v2\\OfflineStaticProtection.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\g\\dev\\Torch_Plugin_OfflineProtection_v2\\OfflineStaticProtection.csproj",
+        "projectName": "OfflineStaticProtection",
+        "projectPath": "D:\\g\\dev\\Torch_Plugin_OfflineProtection_v2\\OfflineStaticProtection.csproj",
+        "packagesPath": "C:\\Users\\mamba\\.nuget\\packages\\",
+        "outputPath": "D:\\g\\dev\\Torch_Plugin_OfflineProtection_v2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mamba\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

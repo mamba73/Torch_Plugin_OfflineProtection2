@@ -1,7 +1,9 @@
 using Sandbox.Game.Entities;
+using Sandbox.Game.World;
 using Torch.API;
 using System.Collections.Generic;
 using OfflineStaticProtection.Plugin;
+using OfflineStaticProtection.Utils;
 
 namespace OfflineStaticProtection.Services
 {
@@ -9,36 +11,36 @@ namespace OfflineStaticProtection.Services
     {
         public static void LockPlayerGrids(IPlayer player)
         {
-            foreach (var grid in GetPlayerGrids(player))
+            long identityId = GetIdentityId(player);
+            foreach (var grid in GetPlayerGrids(identityId))
                 GridLockService.LockGrid(grid);
         }
 
         public static void ScheduleUnlock(IPlayer player)
         {
-            int delay = OfflineStaticProtectionPlugin.Config.UnlockDelaySeconds;
+            long identityId = GetIdentityId(player);
 
-            for (int i = delay; i > 0; i--)
+            ChatUtils.Send(player.SteamId,
+                $"Your grids will unlock in {OfflineStaticProtectionPlugin.Config.UnlockDelaySeconds} seconds.");
+
+            TorchBase.Instance.Invoke(() =>
             {
-                int remaining = i;
-                Torch.CurrentSession?.Torch.Invoke(() =>
-                {
-                    ChatUtils.Send(player.SteamId,
-                        $"Your grids will unlock in {remaining} seconds.");
-                });
+                foreach (var grid in GetPlayerGrids(identityId))
+                    GridLockService.UnlockGrid(grid);
 
-                System.Threading.Thread.Sleep(1000);
-            }
-
-            foreach (var grid in GetPlayerGrids(player))
-                GridLockService.UnlockGrid(grid);
-
-            ChatUtils.Send(player.SteamId, "Your grids are now unlocked.");
+                ChatUtils.Send(player.SteamId, "Your grids are now unlocked.");
+            }, OfflineStaticProtectionPlugin.Config.UnlockDelaySeconds * 1000);
         }
 
-        private static IEnumerable<MyCubeGrid> GetPlayerGrids(IPlayer player)
+        private static long GetIdentityId(IPlayer player)
         {
-            var result = new List<MyCubeGrid>();
-            var identityId = player.IdentityId;
+            var identity = MySession.Static.Players.TryGetIdentity(player.SteamId);
+            return identity?.IdentityId ?? 0;
+        }
+
+        private static IEnumerable<MyCubeGrid> GetPlayerGrids(long identityId)
+        {
+            var grids = new List<MyCubeGrid>();
 
             foreach (var entity in MyEntities.GetEntities())
             {
@@ -48,11 +50,11 @@ namespace OfflineStaticProtection.Services
                         continue;
 
                     if (grid.BigOwners.Contains(identityId))
-                        result.Add(grid);
+                        grids.Add(grid);
                 }
             }
 
-            return result;
+            return grids;
         }
     }
 }

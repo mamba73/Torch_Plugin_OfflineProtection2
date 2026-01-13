@@ -1,0 +1,3 @@
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.csproj.AssemblyReference.cache
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.GeneratedMSBuildEditorConfig.editorconfig
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.csproj.CoreCompileInputs.cache

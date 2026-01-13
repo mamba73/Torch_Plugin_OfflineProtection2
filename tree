@@ -1,21 +1,18 @@
-OfflineStaticProtection/
+Torch_Plugin_OfflineProtection_v2/
 │
 ├─ OfflineStaticProtection.csproj
 ├─ manifest.xml
 ├─ build.bat
-├─ README.md
-├─ .gitignore
-│
-├─ Plugin/
-│   └─ OfflineStaticProtectionPlugin.cs
 │
 ├─ Config/
 │   ├─ OfflineProtectionConfig.cs
 │   └─ OfflineProtection.cfg
 │
+├─ Plugin/
+│   └─ OfflineStaticProtectionPlugin.cs
+│
 ├─ Services/
 │   ├─ OfflinePlayerTracker.cs
-│   ├─ GridScanner.cs
 │   └─ GridLockService.cs
 │
 └─ Utils/
