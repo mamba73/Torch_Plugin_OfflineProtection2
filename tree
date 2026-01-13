@@ -1,0 +1,22 @@
+OfflineStaticProtection/
+│
+├─ OfflineStaticProtection.csproj
+├─ manifest.xml
+├─ build.bat
+├─ README.md
+├─ .gitignore
+│
+├─ Plugin/
+│   └─ OfflineStaticProtectionPlugin.cs
+│
+├─ Config/
+│   ├─ OfflineProtectionConfig.cs
+│   └─ OfflineProtection.cfg
+│
+├─ Services/
+│   ├─ OfflinePlayerTracker.cs
+│   ├─ GridScanner.cs
+│   └─ GridLockService.cs
+│
+└─ Utils/
+    └─ ChatUtils.cs
