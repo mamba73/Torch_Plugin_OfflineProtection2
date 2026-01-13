@@ -1,0 +1,20 @@
+# Build outputs
+bin/
+obj/
+*.user
+*.suo
+*.pdb
+*.exe
+*.dll
+
+# VS Code / Rider / IDE
+.vscode/
+.idea/
+*.sln.ide
+
+# Config / local logs
+*.log
+*.tmp
+
+# Ignore dependencies DLLs (Torch / SE)
+Dependencies/*.dll
