@@ -1,19 +1,22 @@
+using System;
+
 namespace OfflineStaticProtection.Utils
 {
     /// <summary>
-    /// Utility class for sending chat messages to players.
+    /// Utility class for sending chat messages.
+    /// Currently stubbed for clean build.
     /// </summary>
     public static class ChatUtils
     {
         /// <summary>
-        /// Sends a message to a player identified by SteamId.
-        /// Currently stub: does nothing.
+        /// Send a chat message to a player by Steam ID (stub).
         /// </summary>
-        /// <param name="steamId">Steam ID of the player</param>
+        /// <param name="steamId">Player Steam ID</param>
         /// <param name="message">Message text</param>
-        public static void Send(ulong steamId, string message)
+        public static void Send(long steamId, string message)
         {
-            // TODO: Implement chat sending
+            // Stub method: logs message to console for now
+            Console.WriteLine("[ChatUtils] Message to {0}: {1}", steamId, message);
         }
     }
 }

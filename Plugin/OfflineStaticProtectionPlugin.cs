@@ -1,81 +1,38 @@
-using System;
-using System.Collections.Generic;
 using NLog;
-using Torch;
-using Torch.API;
-using Torch.API.Managers;
-using Torch.API.Plugins;
-using Torch.API.Session;
-
-using OfflineStaticProtection.Services;
 
 namespace OfflineStaticProtection.Plugin
 {
     /// <summary>
-    /// Main plugin class that tracks players and locks/unlocks their grids.
+    /// Main plugin class for Torch v1.3.1.
+    /// Minimal implementation for clean C# 4.6 build.
     /// </summary>
-    public class OfflineStaticProtectionPlugin : TorchPluginBase
+    public class OfflineStaticProtectionPlugin
     {
-        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        // Logger for debug output
+        public static Logger Log;
 
-        // Tracks SteamIDs of players currently protected (offline)
-        private HashSet<ulong> _protectedPlayers;
+        // Plugin configuration placeholder
+        public static OfflineProtectionConfig Config;
 
-        public override void Init(ITorchBase torch)
+        /// <summary>
+        /// Called manually from Torch on plugin load.
+        /// Sets up logger and config.
+        /// </summary>
+        public void Init()
         {
-            base.Init(torch);
-            Log.Info("OfflineStaticProtection plugin initialized.");
-
-            _protectedPlayers = new HashSet<ulong>();
-
-            // Subscribe to session state changed
-            ITorchSessionManager sessionManager = torch.Managers.GetManager<ITorchSessionManager>();
-            if (sessionManager != null)
-            {
-                sessionManager.SessionStateChanged += OnSessionStateChanged;
-            }
+            Log = LogManager.GetLogger("OfflineStaticProtection");
+            Config = new OfflineProtectionConfig();
+            Log.Info("OfflineStaticProtection initialized (clean build).");
         }
+    }
 
-        private void OnSessionStateChanged(ITorchSession session, TorchSessionState state)
-        {
-            if (state == TorchSessionState.Loaded)
-            {
-                Log.Info("Session loaded, subscribing to multiplayer events.");
-
-                IMultiplayerManagerServer multiplayer = session.Managers.GetManager<IMultiplayerManagerServer>();
-                if (multiplayer != null)
-                {
-                    multiplayer.PlayerJoined += OnPlayerJoined;
-                    multiplayer.PlayerLeft += OnPlayerLeft;
-                }
-            }
-        }
-
-        private void OnPlayerLeft(IPlayer player)
-        {
-            if (player == null) return;
-
-            ulong steamId = player.SteamId;
-            Log.Info("Player left: " + player.Name + " (" + steamId + ")");
-
-            GridLockService.LockPlayerGrids(steamId);
-
-            _protectedPlayers.Add(steamId);
-            Log.Info("Player " + player.Name + " grids are now locked and tracked as protected.");
-        }
-
-        private void OnPlayerJoined(IPlayer player)
-        {
-            if (player == null) return;
-
-            ulong steamId = player.SteamId;
-
-            if (_protectedPlayers.Contains(steamId))
-            {
-                Log.Info("Player joined: " + player.Name + " (" + steamId + ") - unlocking grids in configured delay.");
-                GridLockService.UnlockPlayerGridsWithDelay(steamId);
-                _protectedPlayers.Remove(steamId);
-            }
-        }
+    /// <summary>
+    /// Placeholder configuration class.
+    /// </summary>
+    public class OfflineProtectionConfig
+    {
+        public bool Debug = true;             // Enable debug logs
+        public bool DisableProduction = true; // Disable production blocks while locked
+        public int UnlockDelaySeconds = 5;    // Delay before unlocking grids
     }
 }

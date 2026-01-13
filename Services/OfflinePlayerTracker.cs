@@ -1,27 +1,31 @@
+using System;
+
 namespace OfflineStaticProtection.Services
 {
     /// <summary>
-    /// Tracks players going offline or joining the game.
-    /// Stub functions: no actual tracking yet.
+    /// Tracks players offline for grid locking.
+    /// Currently stubbed for clean build.
     /// </summary>
     public static class OfflinePlayerTracker
     {
         /// <summary>
-        /// Called when a player leaves the server.
+        /// Called when a player disconnects.
         /// </summary>
-        /// <param name="steamId">Steam ID of the player</param>
-        public static void OnPlayerLeft(ulong steamId)
+        /// <param name="steamId">Player Steam ID</param>
+        public static void OnPlayerDisconnected(long steamId)
         {
-            // TODO: Track offline player
+            // Stub: do nothing, just log
+            Console.WriteLine("[OfflinePlayerTracker] Player disconnected: " + steamId);
         }
 
         /// <summary>
-        /// Called when a player joins the server.
+        /// Called when a player reconnects.
         /// </summary>
-        /// <param name="steamId">Steam ID of the player</param>
-        public static void OnPlayerJoined(ulong steamId)
+        /// <param name="steamId">Player Steam ID</param>
+        public static void OnPlayerConnected(long steamId)
         {
-            // TODO: Track login
+            // Stub: do nothing, just log
+            Console.WriteLine("[OfflinePlayerTracker] Player connected: " + steamId);
         }
     }
 }

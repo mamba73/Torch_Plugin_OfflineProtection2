@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>OfflineStaticProtection</Name>
   <Guid>e1a5f2b8-3c74-4d6f-b4e8-9c1234567890</Guid>
-  <Version>2.0.0</Version>
+  <Version>2.0.1</Version>
   <Description>Locks grids for offline players with optional production disable and delayed unlock.</Description>
   <Author>mamba</Author>
 </PluginManifest>

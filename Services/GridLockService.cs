@@ -1,44 +1,44 @@
+using System;
 using System.Collections.Generic;
-using System.Threading;
-using NLog;
+using Sandbox.Game.Entities;
 
 namespace OfflineStaticProtection.Services
 {
     /// <summary>
-    /// Handles grid locking/unlocking.
+    /// Service for locking/unlocking player grids.
+    /// Currently stubbed for clean build.
     /// </summary>
     public static class GridLockService
     {
-        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-
         /// <summary>
-        /// Lock all grids of a player by SteamID.
+        /// Locks all grids for a player (stub).
         /// </summary>
-        public static void LockPlayerGrids(ulong steamId)
+        /// <param name="steamId">Player Steam ID</param>
+        public static void LockPlayerGrids(long steamId)
         {
-            Log.Info("[DEBUG] LockPlayerGrids called for SteamID: " + steamId);
-
-            // TODO: Implement actual grid lock using MySession / Sandbox references
-            // Minimal version for initial build: does nothing but log
-            Log.Info("Simulated: grids locked for SteamID " + steamId);
+            // Stub: do nothing, just log
+            Console.WriteLine("[GridLockService] LockPlayerGrids called for SteamID: " + steamId);
         }
 
         /// <summary>
-        /// Unlock all grids of a player after a delay.
+        /// Unlocks grids with delay (stub).
         /// </summary>
-        public static void UnlockPlayerGridsWithDelay(ulong steamId)
+        /// <param name="steamId">Player Steam ID</param>
+        public static void UnlockPlayerGridsWithDelay(long steamId)
         {
-            int delay = 30; // placeholder, will move to config
-            Log.Info("[DEBUG] UnlockPlayerGridsWithDelay called for SteamID: " + steamId);
+            // Stub: do nothing, just log
+            Console.WriteLine("[GridLockService] UnlockPlayerGridsWithDelay called for SteamID: " + steamId);
+        }
 
-            Log.Info("Simulated: grids will unlock in " + delay + " seconds.");
-
-            Thread t = new Thread(delegate ()
-            {
-                Thread.Sleep(delay * 1000);
-                Log.Info("Simulated: grids unlocked for SteamID " + steamId);
-            });
-            t.Start();
+        /// <summary>
+        /// Returns a list of grids for a player (stub).
+        /// </summary>
+        /// <param name="identityId">Player identity ID</param>
+        /// <returns>Empty list</returns>
+        private static IEnumerable<MyCubeGrid> GetPlayerGrids(long identityId)
+        {
+            // Stub: return empty list
+            return new List<MyCubeGrid>();
         }
     }
 }
