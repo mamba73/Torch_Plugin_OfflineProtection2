@@ -20,6 +20,7 @@ OfflineStaticProtection/
 ├─ Utils/
 │  └─ ChatUtils.cs
 ├─ .gitignore
+└─ build.bat
+├─ manifest.xml
 ├─ OfflineStaticProtection.csproj
 ├─ README.md
-└─ build.bat

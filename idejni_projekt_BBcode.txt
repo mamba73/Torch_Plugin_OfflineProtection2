@@ -1,0 +1,143 @@
+[b][size=4]OfflineStaticProtection (Torch Plugin)[/size][/b]
+
+[b]Overview[/b]
+OfflineStaticProtection is a server-side plugin developed for [b]Torch Server[/b] running [b]Space Engineers Dedicated Server[/b].
+
+The goal of this project is to provide [b]automatic protection for player-owned grids when players are offline[/b], without relying on PvP timers, safe zones, or manual admin intervention.
+
+This plugin is designed for [b]Vanilla++ servers[/b], where gameplay mechanics remain vanilla, but quality-of-life and anti-abuse protections are added on the server side.
+
+[b]Target Environment[/b]
+[list]
+[] Game: Space Engineers (Dedicated Server)
+[] Server Platform: Torch Server
+[] Programming Language: C#
+[] Framework: .NET Framework 4.6 / net48
+[] Build Type: Class Library (.dll)
+[] Configuration Format: XML (.cfg extension)
+[/list]
+
+[b]Project Goals[/b]
+
+The main idea behind this plugin is to solve a common multiplayer problem:
+
+Players log off, and their grids become easy targets for offline raiding or griefing.
+
+This plugin automatically detects player connection state and applies protection logic based on whether the player is online or offline.
+
+[b]Core Functionality[/b]
+
+[b]Player Connection Tracking[/b]
+[list]
+[] Listens to real Space Engineers multiplayer events
+[] Detects player connect and disconnect
+[] Uses SteamID (ulong) and IdentityID (long)
+[] Identity resolution via Space Engineers session API
+[*] No fake or non-existent Torch player APIs
+[/list]
+
+[b]Grid Ownership Detection[/b]
+[list]
+[] Detects all grids owned by the player
+[] Uses grid BigOwners list
+[] Only offline player grids are affected
+[] Online player grids remain untouched
+[/list]
+
+[b]Offline Protection Logic[/b]
+
+[b]When a player disconnects:[/b]
+[list]
+[] Player grids are locked
+[] Grids become non-editable
+[] Interaction is blocked
+[] Optional: production blocks can be disabled
+[/list]
+
+[b]When a player reconnects:[/b]
+[list]
+[] Grids are unlocked
+[] Edit permissions restored
+[*] Production blocks re-enabled if disabled
+[/list]
+
+[b]Configuration System[/b]
+[list]
+[] XML-based configuration
+[] File extension: .cfg
+[] Automatically generated on first start
+[] No JSON or external serializers
+[/list]
+
+[b]Config options include:[/b]
+[list]
+[] PluginEnabled
+[] DisableProduction
+[*] UnlockDelaySeconds (future use)
+[/list]
+
+[b]Manifest Handling[/b]
+[list]
+[] Plugin metadata defined exclusively in manifest.xml
+[] Torch reads Name, GUID, Version, Author, Description
+[] No hardcoded version or GUID in C# code
+[] Follows Torch best practices
+[/list]
+
+[b]Project Structure[/b]
+[list]
+[] Plugin – Torch lifecycle and bootstrap
+[] Services – Offline tracking and grid lock logic
+[] Config – XML configuration handling
+[] Utils – Logging and helpers
+[/list]
+
+[b]Build & Deployment[/b]
+[list]
+[] Built as Class Library
+[] Outputs single DLL
+[] manifest.xml included
+[] ZIP package ready for upload
+[/list]
+
+[b]Deployment Steps:[/b]
+[list]
+[] Build plugin
+[] Upload to Torch Plugins folder
+[] Restart server
+[] Config file generated automatically
+[/list]
+
+[b]Design Principles[/b]
+[list]
+[] No client-side mods required
+[] Vanilla gameplay preserved
+[] Server-side only logic
+[] Uses real Space Engineers events
+[] Stable and maintainable
+[] Server-owner friendly
+[/list]
+
+[b]Current State[/b]
+[list]
+[] Core logic implemented
+[] Player connect/disconnect handling
+[] Grid lock/unlock system
+[] XML configuration
+[*] Manifest-driven metadata
+[/list]
+
+[b]Future Extensions (Optional)[/b]
+[list]
+[] Delayed unlock timers
+[] Per-faction rules
+[] Admin overrides
+[] Chat notifications
+[] Whitelist / blacklist
+[] PvP zone integration
+[/list]
+
+[b]Author[/b]
+Author: mamba
+Project Type: Torch Server Plugin
+Purpose: Offline grid protection for Space Engineers multiplayer servers

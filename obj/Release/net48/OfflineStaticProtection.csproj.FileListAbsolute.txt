@@ -15,3 +15,4 @@ D:\g\dev\Torch_Plugin_OfflineProtection_v2\bin\Release\VRage.Math.dll
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineS.9C983FCB.Up2Date
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.dll
 D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.pdb
+D:\g\dev\Torch_Plugin_OfflineProtection_v2\obj\Release\net48\OfflineStaticProtection.sourcelink.json

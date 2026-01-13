@@ -1,38 +1,111 @@
+using System;
+using Torch;
+using Torch.API;
+using Torch.API.Managers;
+using Torch.API.Session;
 using NLog;
+using OfflineStaticProtection.Config;
 
 namespace OfflineStaticProtection.Plugin
 {
     /// <summary>
-    /// Main plugin class for Torch v1.3.1.
-    /// Minimal implementation for clean C# 4.6 build.
+    /// Main plugin class - handles Torch lifecycle and service initialization
     /// </summary>
-    public class OfflineStaticProtectionPlugin
+    public class OfflineStaticProtectionPlugin : TorchPluginBase
     {
-        // Logger for debug output
-        public static Logger Log;
+        internal static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        internal static OfflineProtectionConfig Config;
 
-        // Plugin configuration placeholder
-        public static OfflineProtectionConfig Config;
+        private Services.OfflinePlayerTracker _playerTracker;
+        private Services.GridLockService _gridLockService;
 
         /// <summary>
-        /// Called manually from Torch on plugin load.
-        /// Sets up logger and config.
+        /// Called when plugin is loaded by Torch
         /// </summary>
-        public void Init()
+        public override void Init(ITorchBase torch)
         {
-            Log = LogManager.GetLogger("OfflineStaticProtection");
-            Config = new OfflineProtectionConfig();
-            Log.Info("OfflineStaticProtection initialized (clean build).");
-        }
-    }
+            base.Init(torch);
 
-    /// <summary>
-    /// Placeholder configuration class.
-    /// </summary>
-    public class OfflineProtectionConfig
-    {
-        public bool Debug = true;             // Enable debug logs
-        public bool DisableProduction = true; // Disable production blocks while locked
-        public int UnlockDelaySeconds = 5;    // Delay before unlocking grids
+            try
+            {
+                Log.Info("OfflineStaticProtection: Initializing...");
+
+                // Load configuration from XML file
+                Config = OfflineProtectionConfig.Load(torch);
+
+                // Check if plugin is disabled in config
+                if (!Config.PluginEnabled)
+                {
+                    Log.Warn("Plugin is DISABLED via config. Set PluginEnabled=true to activate.");
+                    return;
+                }
+
+                // Initialize core services
+                _gridLockService = new Services.GridLockService();
+                _playerTracker = new Services.OfflinePlayerTracker(_gridLockService);
+
+                // Register session state listener to know when game is ready
+                var sessionManager = torch.Managers.GetManager<ITorchSessionManager>();
+                if (sessionManager != null)
+                {
+                    sessionManager.SessionStateChanged += OnSessionStateChanged;
+                    Log.Info("Session state change listener registered.");
+                }
+                else
+                {
+                    Log.Error("Failed to get ITorchSessionManager. Plugin may not function correctly.");
+                }
+
+                Log.Info("OfflineStaticProtection: Initialization complete.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to initialize OfflineStaticProtection plugin.");
+            }
+        }
+
+        /// <summary>
+        /// Handles game session state changes (loading, loaded, unloading)
+        /// </summary>
+        private void OnSessionStateChanged(ITorchSession session, TorchSessionState state)
+        {
+            try
+            {
+                if (state == TorchSessionState.Loaded)
+                {
+                    // Game world is loaded - safe to register player events
+                    Log.Info("Session loaded, registering player tracking.");
+                    _playerTracker?.Register();
+                }
+                else if (state == TorchSessionState.Unloading)
+                {
+                    // Game world is unloading - cleanup event handlers
+                    Log.Info("Session unloading, unregistering player tracking.");
+                    _playerTracker?.Unregister();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Error during session state change to {state}");
+            }
+        }
+
+        /// <summary>
+        /// Called when plugin is unloaded (server shutdown or plugin reload)
+        /// </summary>
+        public override void Dispose()
+        {
+            try
+            {
+                Log.Info("OfflineStaticProtection: Disposing...");
+                _playerTracker?.Unregister();
+                base.Dispose();
+                Log.Info("OfflineStaticProtection: Disposed successfully.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error during plugin disposal.");
+            }
+        }
     }
 }

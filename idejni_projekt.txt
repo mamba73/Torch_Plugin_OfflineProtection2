@@ -1,0 +1,209 @@
+OfflineStaticProtection (Torch Plugin)
+Overview
+
+OfflineStaticProtection is a server-side plugin developed for Torch Server running Space Engineers Dedicated Server.
+
+The goal of this project is to provide automatic protection for player-owned grids when players are offline, without relying on PvP timers, safe zones, or manual admin intervention.
+
+This plugin is designed for Vanilla++ servers, where gameplay mechanics remain vanilla, but quality-of-life and anti-abuse protections are added on the server side.
+
+Target Environment
+
+Game: Space Engineers (Dedicated Server)
+
+Server Platform: Torch Server
+
+Programming Language: C#
+
+Framework: .NET Framework 4.6 / net48
+
+Build Type: Class Library (.dll)
+
+Configuration Format: XML (.cfg extension)
+
+Project Goals
+
+The main idea behind this plugin is to solve a common multiplayer problem:
+
+Players log off, and their grids become easy targets for offline raiding or griefing.
+
+This plugin automatically detects player connection state and applies protection logic based on whether the player is online or offline.
+
+Core Functionality
+Player Connection Tracking
+
+The plugin listens to real Space Engineers multiplayer events:
+
+Player connected
+
+Player disconnected
+
+Player detection is done via:
+
+SteamID (ulong)
+
+IdentityID (long)
+
+Identity resolution is handled through the Space Engineers session API.
+
+No fake Torch player APIs are used.
+
+Grid Ownership Detection
+
+All grids owned by the player (BigOwners list) are detected.
+
+Only grids owned by the offline player are affected.
+
+Grids owned by online players remain untouched.
+
+Offline Protection Logic
+
+When a player disconnects:
+
+All grids owned by that player are:
+
+Marked as non-editable
+
+Locked against interaction
+
+Optional:
+
+Production blocks (assemblers, refineries, etc.) can be disabled
+
+When a player reconnects:
+
+All previously locked grids are:
+
+Unlocked
+
+Made editable again
+
+Production blocks are re-enabled if they were disabled
+
+Configuration System
+
+Configuration is stored in an XML file
+
+File extension is .cfg (by requirement)
+
+Config file is automatically created on first plugin start
+
+No JSON or external serializers are used
+
+Config values include:
+
+PluginEnabled
+
+DisableProduction
+
+UnlockDelaySeconds (for future extension)
+
+Manifest Handling
+
+Plugin metadata is defined exclusively in manifest.xml
+
+Torch reads:
+
+Plugin Name
+
+GUID
+
+Version
+
+Author
+
+Description
+
+No version, GUID, or name is hardcoded in C# code
+
+The plugin code does not duplicate manifest information
+
+This follows Torch best practices.
+
+Project Structure
+
+Plugin
+
+Main plugin bootstrap and Torch lifecycle handling
+
+Services
+
+Offline player tracking
+
+Grid locking and unlocking logic
+
+Config
+
+XML configuration handling
+
+Utils (optional)
+
+Logging or helper utilities
+
+Each responsibility is separated and clearly scoped.
+
+Build & Deployment
+
+Project is built as a Class Library
+
+Output is a single DLL
+
+manifest.xml is packaged alongside the DLL
+
+A build script produces a ready-to-upload ZIP file
+
+Deployment steps:
+
+Build the plugin
+
+Upload ZIP contents into Torch Plugins folder
+
+Restart Torch server
+
+Configuration file is generated automatically
+
+Design Principles
+
+No client-side mods required
+
+No changes to vanilla game mechanics
+
+No fake or non-existent Torch APIs
+
+Uses real Space Engineers server-side events
+
+Focus on stability and maintainability
+
+Server-owner friendly
+
+Current State
+
+Core logic implemented
+
+Player connect/disconnect tracking implemented
+
+Grid lock/unlock logic implemented
+
+XML configuration implemented
+
+Manifest-driven metadata implemented
+
+Future Extensions (Optional)
+
+Delayed unlock timers
+
+Per-faction protection rules
+
+Admin overrides
+
+Chat notifications
+
+Whitelist / blacklist support
+
+Integration with PvP zones or schedules
+
+Author
+
+Author: mamba
+Project Type: Torch Server Plugin
+Purpose: Offline grid protection for Space Engineers multiplayer servers
